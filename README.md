@@ -17,10 +17,9 @@ Default: ping.csv.
 Defines the time between pings.  
 Default: 10 seconds.
 ### -w or --warn:
-Defines whether you should be notified when a ping fails.  
-Default: true.
+Add this argument to get warned when a ping fails.
 ### -m or --minimum-time-up:
-Defines the minimum time the network has to have been up since the last ping failure for the network to be considered down again and a new warning issued.  
+Defines the minimum time the network has to have been up since the last ping failure for the network to be considered down again and a new warning issued. Only applicable when the option above has been used.  
 Default: 60 seconds.
 
 ## Help

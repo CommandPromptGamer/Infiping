@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
 #    Infiping: pings a series of servers and logs the result in a csv file for analysis.
-#    Copyright (C) 2021  Command_Prompt_Gamer
+#    Copyright (C) 2022  Command_Prompt_Gamer
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -73,7 +73,7 @@ if __name__ == "__main__":
     addresses = ["1.1.1.1", "1.0.0.1", "8.8.8.8", "8.8.4.4", "9.9.9.9", "149.112.112.112", "208.67.222.222", "208.67.220.220", "185.228.168.9", "185.228.169.9", "76.76.19.19", "76.223.122.150", "94.140.14.14", "94.140.15.15"]  # The default addresses to ping. These are all DNS servers that should be fine to ping a lot.
     filename = "ping.csv"  # The filename to export the ping results to.
     timeToWait = 10  # How long we should wait between each ping.
-    warn = True  # Whether we should send a warning (both visual and auditive) when a ping fails.
+    warn = False  # Whether we should send a warning (both visual and auditive) when a ping fails.
     minimumTimeUp = 60  # How long it has to have passed since the last failure for the warning to be sent. This is used to avoid getting warned over and over again when the network goes down. For example, a time of 60 means that the network has to have been up for at least 60 seconds since the last failure for a new warning to be sent when it goes down again.
 
     args = sys.argv[1:]
@@ -103,10 +103,7 @@ if __name__ == "__main__":
             timeToWait = args[iteration + 1]
 
         if option in ["-w", "--warn"]:
-            if args[iteration + 1] == "true":
-                warn = True
-            else:
-                warn = False
+            warn = True
         
         if option in ["-m", "--minimum-time-up"]:
             minimumTimeUp = args[iteration + 1]
