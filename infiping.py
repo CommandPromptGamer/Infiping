@@ -33,7 +33,7 @@ def ping(address, filename, warn=False, minimumTimeUp=0, timeToWait=0):
         with open(filename, "w", newline='\r\n') as file:
             file.write("timestamp,address,failed\n")
 
-    if os.name == "nt":
+    if os.name == "nt":  # Windows uses -n to indicate how many pings should be made, everything else uses -c.
         countIndicator = "-n"
     else:
         countIndicator = "-c"
@@ -76,13 +76,13 @@ if __name__ == "__main__":
     warn = False  # Whether we should send a warning (both visual and auditive) when a ping fails.
     minimumTimeUp = 60  # How long it has to have passed since the last failure for the warning to be sent. This is used to avoid getting warned over and over again when the network goes down. For example, a time of 60 means that the network has to have been up for at least 60 seconds since the last failure for a new warning to be sent when it goes down again.
 
+    # Generates Custom settings from the command-line arguments.
     args = sys.argv[1:]
 
     for iteration, option in enumerate(args):
         if option in ["-a", "--addresses"]:
             addresses = []
             if args[iteration + 1].startswith("["):
-                
                 end = False
                 for argument in args[iteration + 1:]:
                         if argument != argument.removesuffix("]"):
@@ -139,12 +139,7 @@ if __name__ == "__main__":
 
             sys.exit()
 
-    if os.name == "nt":  # Windows uses -n to indicate how many pings should be made, everything else uses -c.
-        countIndicator = "-n"
-    else:
-        countIndicator = "-c"
 
-
-    while True:
+    while True:  # Runs the pings with the settings generated above.
         for address in addresses:
             ping(address, filename, warn, minimumTimeUp, timeToWait)
